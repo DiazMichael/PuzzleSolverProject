@@ -15,10 +15,10 @@ namespace ConsoleCore
                 {
                     if (board.BoardPlayed[i][j].Value == 0)
                     {
-                        if (PuzzleSolver.GetPotentialValues(board, board.BoardPlayed[i][j]).Any())
-                        {
-                            board.BoardPlayed[i][j].Value = board.BoardPlayed[i][j].Sector.NumbersAvailable[0];
-                        }
+                        //if (PuzzleSolver.GetPotentialValues(board, board.BoardPlayed[i][j]).Any())
+                        //{
+                        //    board.BoardPlayed[i][j].Value = board.BoardPlayed[i][j].Sector.NumbersAvailable[0];
+                        //}
                     }
                 }
             }
@@ -50,7 +50,7 @@ namespace ConsoleCore
                 {
                     for (var j = 0; j < square.Sector.Size; j++)
                     {
-                        if(square.Sector.Squares[j] == )
+                        
                     }
                 }
             }

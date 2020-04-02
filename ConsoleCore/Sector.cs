@@ -29,11 +29,6 @@ namespace ConsoleCore
             this.Squares = sectionSquares;
             this.Size = sectionSquares.Count();
 
-            for (var i = 0; i <= this.Size; i++)
-            {
-                NumbersAvailable.Add(i);
-            }
-
 
             foreach (var square in sectionSquares)
             {
