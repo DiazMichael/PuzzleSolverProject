@@ -39,7 +39,6 @@ namespace ConsoleCore
             square.Value = value;
             square.PrintedValue = value.ToString();
             square.State = SquareState.Awake;
-            Console.WriteLine($"Square {square.AxisY},{square.AxisX} is now {value}");
         }
         public void PrintBoard()
         {
@@ -48,7 +47,7 @@ namespace ConsoleCore
             {
                 foreach (var square in row)
                 {
-                    Console.Write($"{square.PrintedValue}            ");
+                    Console.Write($"{square.Value}            ");
                 }
                 Console.WriteLine();
                 Console.WriteLine();

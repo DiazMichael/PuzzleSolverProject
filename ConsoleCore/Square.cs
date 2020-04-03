@@ -14,27 +14,40 @@ namespace ConsoleCore
     class Square
     {
         public SquareState State { get; set; }
-        public int AxisY { get; set; }
-        public int AxisX { get; set; }
+        public int Row { get; set; }
+        public int Column { get; set; }
         public int Value { get; set; }
         public string PrintedValue { get; set; }
         public Sector Sector { get; set; }
+        public Board Board { get; set; }
 
         public Square()
         {
+            this.Value = 0;
             this.PrintedValue = "     ";
             Console.WriteLine($"A square has been generated");
         }
         public Square(int x, int y)
         {
-            this.AxisY = y;
-            this.AxisX = x;
+            this.Row = x;
+            this.Column = y;
             State = SquareState.Empty;
-            this.PrintedValue = $"[{this.AxisX},{this.AxisY}]";
+            this.PrintedValue = $"[{this.Row},{this.Column}]";
+        }
+        public static int GetSquareValue(Board board, int x, int y)
+        {
+            if (x < 0 || x > board.Height - 1 || y < 0 || y > board.Width - 1)
+                return 0;
+            else
+                return board.BoardPlayed[x][y].Value;
         }
         public static Square GetSquare(Board board, int x, int y)
         {
-            return board.BoardPlayed[y][x];
+
+            if (x < 0 || x > board.Height - 1 || y < 0 || y > board.Width - 1)
+                return new Square();
+            else
+                return board.BoardPlayed[x][y];
         }
     }
 }

@@ -7,66 +7,58 @@ namespace ConsoleCore
 {
     class PuzzleSolver
     {
-        public void GetPuzzleSolution(Board board)
+        public static void GetPuzzleSolution(Board board)
         {
-            for (var i = 0; i < board.Width; i++)
+            for (var x = 0; x < board.Width; x++)
             {
-                for (var j = 0; j < board.Height; j++)
+
+
+                for (var y = 0; y < board.Height; y++)
                 {
-                    if (board.BoardPlayed[i][j].Value == 0)
+                    if (board.BoardPlayed[x][y].Value == 0)
                     {
-                        if (PuzzleSolver.GetPotentialValues(board, board.BoardPlayed[i][j]).Any())
+                        for (var n = 1; n <= board.BoardPlayed[x][y].Sector.Size; n++)
                         {
-                            board.BoardPlayed[i][j].Value = board.BoardPlayed[i][j].Sector.NumbersAvailable[0];
+                            if (PuzzleSolver.IsPossible(board, board.BoardPlayed[x][y], n))
+                            {
+                                board.BoardPlayed[x][y].Value = n;
+                                GetPuzzleSolution(board);
+                                board.BoardPlayed[x][y].Value = 0;
+                            }
                         }
+                        return;
                     }
                 }
             }
+            board.PrintBoard();
+            Console.WriteLine("More solutions");
 
         }
-        public bool IsBoardFull(Board board)
-        {
-            foreach (var row in board.BoardPlayed)
-            {
-                foreach (var square in row)
-                {
-                    if (square.Value == 0)
-                        return false;
-                }
-            }
-            return true;
-        }
-        public static void GetPotentialValues(Board board, Square square)
+        public static bool IsPossible(Board board, Square square, int possibleNumber)
         {
 
-            var potentialValues = new List<int>();
-            if (square.Value != 0)
+            for (var i = 0; i < square.Sector.Size; i++)
             {
-                return;
+                if (square.Sector.Squares[i].Value == possibleNumber)
+                    return false;
             }
-            else
-            {
-                for (var i = 1; i <= square.Sector.Size; i++)
-                {
-                    for (var j = 0; j < square.Sector.Size; j++)
-                    {
-                        if (square.Sector.Squares[j] == )
-                    }
-                }
-            }
-
+                if (IsEqualNeighbourNumbers(board,square,possibleNumber))
+                    return false;
+                return true;
 
         }
-        public static bool CheckNeighbourNumbers(Board board, Square square)
+        public static bool IsEqualNeighbourNumbers(Board board,Square square, int possibleNumber)
         {
-            return Square.GetSquare(board, square.AxisX - 1, square.AxisY - 1).Value == square.Value ||
-                   Square.GetSquare(board, square.AxisX, square.AxisY - 1).Value == square.Value ||
-                   Square.GetSquare(board, square.AxisX + 1, square.AxisY - 1).Value == square.Value ||
-                   Square.GetSquare(board, square.AxisX - 1, square.AxisY).Value == square.Value ||
-                   Square.GetSquare(board, square.AxisX + 1, square.AxisY).Value == square.Value ||
-                   Square.GetSquare(board, square.AxisX - 1, square.AxisY + 1).Value == square.Value ||
-                   Square.GetSquare(board, square.AxisX, square.AxisY + 1).Value == square.Value ||
-                   Square.GetSquare(board, square.AxisX + 1, square.AxisY + 1).Value == square.Value;
+            var possible = (Square.GetSquareValue(board, square.Row - 1, square.Column - 1) == possibleNumber ||
+                   Square.GetSquareValue(board, square.Row - 1, square.Column) == possibleNumber ||
+                   Square.GetSquareValue(board, square.Row - 1, square.Column + 1) == possibleNumber ||
+                   Square.GetSquareValue(board, square.Row, square.Column - 1) == possibleNumber ||
+                   Square.GetSquareValue(board, square.Row, square.Column + 1) == possibleNumber ||
+                   Square.GetSquareValue(board, square.Row + 1, square.Column - 1) == possibleNumber ||
+                   Square.GetSquareValue(board, square.Row + 1, square.Column) == possibleNumber ||
+                   Square.GetSquareValue(board, square.Row + 1, square.Column + 1) == possibleNumber) ? true : false;
+
+            return possible;
 
         }
     }
