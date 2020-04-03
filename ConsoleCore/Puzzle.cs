@@ -13,7 +13,7 @@ namespace ConsoleCore
         {
             this.Board = new Board(5, 5);
 
-            Board.AssignAwakeSquare(Square.GetSquare(Board, 0, 2), 1);
+            Board.AssignAwakeSquare(Square.GetSquare(Board, 0, 1), 1);
             Board.AssignAwakeSquare(Square.GetSquare(Board, 1, 3), 2);
             Board.AssignAwakeSquare(Square.GetSquare(Board, 3, 1), 4);
             Board.AssignAwakeSquare(Square.GetSquare(Board, 3, 3), 5);
